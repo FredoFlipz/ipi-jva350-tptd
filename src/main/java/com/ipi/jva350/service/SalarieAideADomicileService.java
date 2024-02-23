@@ -23,8 +23,7 @@ public class SalarieAideADomicileService {
 
     @Autowired
     private SalarieAideADomicileRepository salarieAideADomicileRepository;
-    private static final Logger log = LoggerUtil.getLogger(SalarieAideADomicileRepository.class);
-
+    private static final Logger log = LoggerUtil.getLogger(SalarieAideADomicileService.class);
     String message;
 
     public SalarieAideADomicileService() {
@@ -108,7 +107,7 @@ public class SalarieAideADomicileService {
             log.info("Calcul de la limite de congés permis pour le mois en cours effectué avec succès");
             return Math.round(limiteCongesBd.doubleValue());
         }catch (Exception e){
-            log.error("Une erreur s'est produite lors du calcul de la limite de congés permis : " + e.getMessage(), e);
+            log.error("Une erreur s'est produite lors du calcul de la limite de congés permis : {}", e.getMessage(), e);
             throw e;
         }
     }
@@ -210,7 +209,7 @@ public class SalarieAideADomicileService {
             log.info("La clôture du mois s'effectuée avec succès");
             salarieAideADomicileRepository.save(salarieAideADomicile);
         } catch (Exception e){
-            log.error("Une erreur s'est produite lors de la clôture du mois :" + e.getMessage(), e);
+            log.error("Une erreur s'est produite lors de la clôture du mois : {}" + e.getMessage(), e);
             throw e;
         }
     }
@@ -235,7 +234,7 @@ public class SalarieAideADomicileService {
             log.info("La clôture de l'année s'effectuée avec succès");
             salarieAideADomicileRepository.save(salarieAideADomicile);
         }catch (Exception e){
-            log.error("Une erreur s'est produite lors de la clôture de l'année :" + e.getMessage(), e);
+            log.error("Une erreur s'est produite lors de la clôture de l'année : {}" + e.getMessage(), e);
             throw  e;
         }
     }
