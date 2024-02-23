@@ -3,15 +3,12 @@ package com.ipi.jva350.model;
 import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class SalarieAideADomicile {
 
-    public static float CONGES_PAYES_ACQUIS_PAR_MOIS = 2.5f;
+    public static final float CONGES_PAYES_ACQUIS_PAR_MOIS = 2.5f;
 
 
     @Id
@@ -48,7 +45,6 @@ public class SalarieAideADomicile {
     }
 
     public SalarieAideADomicile(String nom, LocalDate moisDebutContrat, LocalDate moisEnCours,
-                                //LinkedHashSet<LocalDate> congesPayesPris,
                                 double joursTravaillesAnneeN, double congesPayesAcquisAnneeN,
                                 double joursTravaillesAnneeNMoins1, double congesPayesAcquisAnneeNMoins1, double congesPayesPrisAnneeNMoins1) {
         this.nom = nom;
@@ -59,7 +55,6 @@ public class SalarieAideADomicile {
         this.congesPayesPrisAnneeNMoins1 = congesPayesPrisAnneeNMoins1;
         this.joursTravaillesAnneeN = joursTravaillesAnneeN;
         this.congesPayesAcquisAnneeN = congesPayesAcquisAnneeN;
-        //this.congesPayesPris = congesPayesPris;
     }
 
     /**
@@ -80,7 +75,7 @@ public class SalarieAideADomicile {
      * @param dateFin
      * @return les jours de congé décomptés, ordonnés. Leur premier et dernier peuvent être après eux fournis.
      */
-    public LinkedHashSet<LocalDate> calculeJoursDeCongeDecomptesPourPlage(LocalDate dateDebut, LocalDate dateFin) {
+    public Set<LocalDate> calculeJoursDeCongeDecomptesPourPlage(LocalDate dateDebut, LocalDate dateFin) {
         LinkedHashSet<LocalDate> joursDeCongeDecomptes = new LinkedHashSet<>();
 
         if (dateDebut.isAfter(dateFin)) {

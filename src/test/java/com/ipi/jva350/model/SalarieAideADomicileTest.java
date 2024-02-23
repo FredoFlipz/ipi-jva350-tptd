@@ -5,6 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class SalarieAideADomicileTest {
 
@@ -65,7 +66,7 @@ public class SalarieAideADomicileTest {
         LocalDate dateDebParse = LocalDate.parse(dateDebut);
         LocalDate dateFinParse = LocalDate.parse(dateFin);
         // When
-        LinkedHashSet<LocalDate> nbDeJourPris = salarieAideADomicile.calculeJoursDeCongeDecomptesPourPlage(dateDebParse,dateFinParse);
+        Set<LocalDate> nbDeJourPris = salarieAideADomicile.calculeJoursDeCongeDecomptesPourPlage(dateDebParse,dateFinParse);
         //Then
         Assertions.assertEquals(expected, nbDeJourPris.size(), "le nombre de jours doit être de " + expected);
 
@@ -79,7 +80,7 @@ public class SalarieAideADomicileTest {
 
         LocalDate dateFin = LocalDate.of(2024,5,14);
     //When
-        LinkedHashSet<LocalDate> nbDeJourPris = salarieAideADomicile.calculeJoursDeCongeDecomptesPourPlage(dateDebut,dateFin);
+        Set<LocalDate> nbDeJourPris = salarieAideADomicile.calculeJoursDeCongeDecomptesPourPlage(dateDebut,dateFin);
     //Then
         Assertions.assertEquals(6, nbDeJourPris.size(), "le nombre de jours doit être de 6");
     }

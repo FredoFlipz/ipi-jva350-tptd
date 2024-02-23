@@ -12,6 +12,7 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -113,7 +114,7 @@ public class SalarieAideADomicileService {
             throw new SalarieException("N'a pas légalement droit à des congés payés !");
         }
 
-        LinkedHashSet<LocalDate> joursDecomptes = salarieAideADomicile
+        Set<LocalDate> joursDecomptes = salarieAideADomicile
                 .calculeJoursDeCongeDecomptesPourPlage(jourDebut, jourFin);
 
         if (joursDecomptes.isEmpty()) {
