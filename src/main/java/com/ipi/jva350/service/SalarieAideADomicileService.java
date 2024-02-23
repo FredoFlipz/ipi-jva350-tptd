@@ -6,14 +6,14 @@ import com.ipi.jva350.model.SalarieAideADomicile;
 import com.ipi.jva350.repository.SalarieAideADomicileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.persistence.EntityExistsException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
+import java.util.Optional;
 import java.util.stream.Collectors;
-//import static org.mokito.Mokito.*;
+
 
 @Service
 public class SalarieAideADomicileService {
@@ -22,6 +22,10 @@ public class SalarieAideADomicileService {
     private SalarieAideADomicileRepository salarieAideADomicileRepository;
 
     public SalarieAideADomicileService() {
+        // Cette classe est destinée à être utilisée en tant qu'objet d'utilité
+        // statique pour les méthodes liées à l'entreprise. Par conséquent,
+        // le constructeur est intentionnellement laissé vide car il n'est pas
+        // censé être instancié.
     }
 
     /**
@@ -96,7 +100,7 @@ public class SalarieAideADomicileService {
     /**
      * Calcule les jours de congés à décompter, et si valide (voir plus bas) les décompte au salarié
      * et le sauve en base de données
-     * @param salarieAideADomicile TODO nom ?
+     * @param salarieAideADomicile correspond au salarié à qui l'on doit décompter les jours de congés
      * @param jourDebut
      * @param jourFin peut être dans l'année suivante mais uniquement son premier jour
      * @throws SalarieException si pas de jour décompté, ou avant le mois en cours, ou dans l'année suivante
@@ -112,13 +116,13 @@ public class SalarieAideADomicileService {
         LinkedHashSet<LocalDate> joursDecomptes = salarieAideADomicile
                 .calculeJoursDeCongeDecomptesPourPlage(jourDebut, jourFin);
 
-        if (joursDecomptes.size() == 0) {
+        if (joursDecomptes.isEmpty()) {
             throw new SalarieException("Pas besoin de congés !");
         }
 
         // on vérifie que le congé demandé est dans les mois restants de l'année de congés en cours du salarié :
-        if (joursDecomptes.stream().findFirst().get()
-                .isBefore(salarieAideADomicile.getMoisEnCours())) {
+        Optional<LocalDate> firstDatePresent = joursDecomptes.stream().findFirst();
+        if (firstDatePresent.isPresent() && firstDatePresent.get().isBefore(salarieAideADomicile.getMoisEnCours())) {
             throw new SalarieException("Pas possible de prendre de congé avant le mois en cours !");
         }
         LinkedHashSet<LocalDate> congesPayesPrisDecomptesAnneeN = new LinkedHashSet<>(joursDecomptes.stream()
@@ -164,12 +168,12 @@ public class SalarieAideADomicileService {
      * @param salarieAideADomicile salarié
      * @param joursTravailles jours travaillés dans le mois en cours du salarié
      */
-    public void clotureMois(SalarieAideADomicile salarieAideADomicile, double joursTravailles) throws SalarieException {
+    public void clotureMois(SalarieAideADomicile salarieAideADomicile, double joursTravailles) {
         // incrémente les jours travaillés de l'année N du salarié de celles passées en paramètres
         salarieAideADomicile.setJoursTravaillesAnneeN(salarieAideADomicile.getJoursTravaillesAnneeN() + joursTravailles);
 
         salarieAideADomicile.setCongesPayesAcquisAnneeN(salarieAideADomicile.getCongesPayesAcquisAnneeN()
-                + salarieAideADomicile.CONGES_PAYES_ACQUIS_PAR_MOIS);
+                + SalarieAideADomicile.CONGES_PAYES_ACQUIS_PAR_MOIS);
 
         salarieAideADomicile.setMoisEnCours(salarieAideADomicile.getMoisEnCours().plusMonths(1));
 
