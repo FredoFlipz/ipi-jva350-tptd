@@ -21,9 +21,6 @@ public class SalarieAideADomicileService {
     @Autowired
     private SalarieAideADomicileRepository salarieAideADomicileRepository;
 
-   /* public void setSalarieAideADomicileRepository{
-        salarieAideADomicileRepository  = mock(SalarieAideADomicileRepository.class);
-    }*/
     public SalarieAideADomicileService() {
     }
 

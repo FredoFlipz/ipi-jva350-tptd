@@ -7,7 +7,7 @@ public final class Entreprise {
 
     private static final Map<Integer, LocalDate> datePaque = new HashMap<>();
 
-    public Entreprise() {
+    protected Entreprise() {
         // Cette classe est destinée à être utilisée en tant qu'objet d'utilité
         // statique pour les méthodes liées à l'entreprise. Par conséquent,
         // le constructeur est intentionnellement laissé vide car il n'est pas
@@ -126,13 +126,7 @@ public final class Entreprise {
         return proportionPonderee / 12d / 10d;
     }
 
-    // La methode getPremierJourAnneeDeConges provoque un issue dans sonar
-    // Il est modifié ci après :
-    /*public static LocalDate getPremierJourAnneeDeConges(LocalDate d) {
-        return d == null ? null
-                : d.getMonthValue() > 5 ? LocalDate.of(d.getYear(), 6, 1)
-                : LocalDate.of(d.getYear() - 1, 6, 1);
-    }*/
+
     public static LocalDate getPremierJourAnneeDeConges(LocalDate d) {
         if (d == null) {
             return null;
@@ -145,23 +139,11 @@ public final class Entreprise {
         }
     }
 
-    // La methode estJourferie provoque l'erreur "Extract this nested ternary operation into an independent statement"
-    // Il est modifié ci-après
-    /*public static boolean estJourFerie(LocalDate jour) {
-        int monEntier = (int) Entreprise.joursFeries(jour).stream().filter(d ->
-                d.equals(jour)).count();
-        int test = bissextile(jour.getYear()) ? 1 : 0;
-        if (test != 0 && !(monEntier > 1)) {
-            test--;
-        }
-        return monEntier != test;
-    }*/
-
     public static boolean estJourFerie(LocalDate jour) {
         int monEntier = (int) Entreprise.joursFeries(jour).stream().filter(d -> d.equals(jour)).count();
         boolean isBissextile = bissextile(jour.getYear());
         int test = isBissextile ? 1 : 0;
-        if (test != 0 && (monEntier == 1 || monEntier == 0)) {
+        if (test != 0 && (monEntier <= 1)) {
             test--;
         }
         return monEntier != test;
