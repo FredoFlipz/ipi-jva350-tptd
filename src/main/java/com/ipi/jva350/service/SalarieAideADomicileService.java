@@ -75,7 +75,7 @@ public class SalarieAideADomicileService {
         // moyenne annuelle des congés pris :
         Double partCongesPrisTotauxAnneeNMoins1 = salarieAideADomicileRepository.partCongesPrisTotauxAnneeNMoins1();
 
-        // si la moyenne actuelle des congés pris diffère de 20% de la la proportion selon l'avancement dans l'année
+        // si la moyenne actuelle des congés pris diffère de 20% de la proportion selon l'avancement dans l'année
         // pondérée avec poids plus gros sur juillet et août (20 vs 8),
         // bonus ou malus de 20% de la différence pour aider à équilibrer la moyenne actuelle des congés pris :
         double proportionMoisEnCours = ((premierJourDeConge.getMonthValue()
@@ -103,7 +103,7 @@ public class SalarieAideADomicileService {
      * et le sauve en base de données
      * @param salarieAideADomicile correspond au salarié à qui l'on doit décompter les jours de congés
      * @param jourDebut
-     * @param jourFin peut être dans l'année suivante mais uniquement son premier jour
+     * @param jourFin peut-être dans l'année suivante, mais uniquement son premier jour
      * @throws SalarieException si pas de jour décompté, ou avant le mois en cours, ou dans l'année suivante
      * (hors l'exception du premier jour pour résoudre le cas d'un samedi), ou la nouvelle totalité
      * des jours de congé pris décomptés dépasse le nombre acquis en N-1 ou la limite de l'entreprise
@@ -160,7 +160,7 @@ public class SalarieAideADomicileService {
     }
 
     /**
-     * Clôture le mois en cours du salarie donné (et fait les calculs requis pour sa feuille de paie de ce mois) :
+     * Clôture le mois en cours du salarié donné (et fait les calculs requis pour sa feuille de paie de ce mois) :
      * (pas forcément en cours, par exemple en cas de retard, vacances de l'entreprise)
      * Met à jour les jours travaillés (avec ceux donnés) et congés payés acquis (avec le nombre acquis par mois, qu'on suppose constant de 2.5) de l'année N
      * (le décompte d ceux de l'année N-1 a par contre déjà été fait dans ajouteConge()).
@@ -205,5 +205,4 @@ public class SalarieAideADomicileService {
 
         salarieAideADomicileRepository.save(salarieAideADomicile);
     }
-
 }

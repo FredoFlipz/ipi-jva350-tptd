@@ -44,7 +44,6 @@ public final class Entreprise {
 
 
     public static List<LocalDate> joursFeries(LocalDate now){
-
         return Arrays.asList(
                 // 1er janvier	Jour de l’an
                 LocalDate.of(now.getYear(), 1,1),
@@ -54,8 +53,8 @@ public final class Entreprise {
                 LocalDate.of(now.getYear(), 5,1),
                 // 8 mai Fête de la Victoire
                 LocalDate.of(now.getYear(), 5,8),
-                // Jeudi 40 jours après Pâques Ascension Fête chrétienne célébrant la montée de Jésus aux cieux.
-                datePaque.get(now.getYear()).plusDays(40L),
+                // Jeudi 40 jours à partir de Pâques Ascension Fête chrétienne célébrant la montée de Jésus aux cieux.
+                datePaque.get(now.getYear()).plusDays(39L),
                 // Le lundi suivant le dimanche de Pentecôte (le septième après Pâques).
                 datePaque.get(now.getYear()).plusDays(50L),
                 // 14 juillet Fête nationale
@@ -68,7 +67,6 @@ public final class Entreprise {
                 LocalDate.of(now.getYear(), 11,11),
                 // 25 décembre Noël
                 LocalDate.of(now.getYear(), 12,25)
-
         );
     }
 
@@ -137,6 +135,12 @@ public final class Entreprise {
         }
     }
 
+    /**
+     * Calcule si une date donnée est un jour férie
+     * Prend en compte les années bissextiles
+     * @param jour
+     * @return
+     */
     public static boolean estJourFerie(LocalDate jour) {
         int monEntier = (int) Entreprise.joursFeries(jour).stream().filter(d -> d.equals(jour)).count();
         boolean isBissextile = bissextile(jour.getYear());
@@ -156,7 +160,6 @@ public final class Entreprise {
      */
     public static boolean estDansPlage(LocalDate d, LocalDate debut, LocalDate fin) {
         return !d.isBefore(debut) && !d.isAfter(fin);
-        //Insérer une exception n'est pas utile, C'était un piège !! ! ....
+        //Insérer une exception n'est pas utile, C'était un piège !! !?? ....
     }
-
 }

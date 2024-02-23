@@ -7,18 +7,13 @@ import java.util.*;
 
 @Entity
 public class SalarieAideADomicile {
-
     public static final float CONGES_PAYES_ACQUIS_PAR_MOIS = 2.5f;
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String nom;
 
     protected static final List<DayOfWeek> joursHabituellementTravailles = new ArrayList<DayOfWeek>();
-
     static {
         joursHabituellementTravailles.add(DayOfWeek.MONDAY);
         joursHabituellementTravailles.add(DayOfWeek.TUESDAY);
@@ -26,14 +21,12 @@ public class SalarieAideADomicile {
         joursHabituellementTravailles.add(DayOfWeek.THURSDAY);
         joursHabituellementTravailles.add(DayOfWeek.FRIDAY);
     }
-
     private LocalDate moisEnCours;
     private LocalDate moisDebutContrat;
-
     private double joursTravaillesAnneeN= 0;
     private double congesPayesAcquisAnneeN= 0;
 
-    /** en année N sur l'acquis N-1 */
+    /** En année N sur l'acquis N-1 */
     @Convert(converter = LinkedHashSetStringConverter.class)
     @Column
     private LinkedHashSet<LocalDate> congesPayesPris = new LinkedHashSet<LocalDate>();
@@ -111,8 +104,6 @@ public class SalarieAideADomicile {
         return joursHabituellementTravailles.contains(jour.getDayOfWeek());
     }
 
-
-
     public Long getId() {
         return id;
     }
@@ -122,20 +113,20 @@ public class SalarieAideADomicile {
     }
 
     /**
-     * @return the nom
+     * @return le nom du salarié
      */
     public String getNom() {
         return nom;
     }
 
     /**
-     * @param nom the nom to set
+     * Permet d'affecter une valeur au nom
+     * @param nom
      */
     public SalarieAideADomicile setNom(String nom) {
         this.nom = nom;
         return this;
     }
-
     public double getJoursTravaillesAnneeN() {
         return joursTravaillesAnneeN;
     }

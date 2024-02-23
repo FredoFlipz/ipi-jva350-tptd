@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.util.Set;
 
 public class SalarieAideADomicileTest {
-
     @Test
     public void testALegalementDroitADesCongesPayesTrue(){
     SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();
@@ -29,17 +28,15 @@ public class SalarieAideADomicileTest {
         Assertions.assertEquals(false, pasAssezDeJoursPourAvoirDroitAuCongesPayes, "Le nombre minimum de jours est de 10");
     }
 
-
-
     @Test
     public void testEstHabituellementTravailleTrue(){
         SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();
-    //Given
-    LocalDate jour = LocalDate.of(2024,10,23);
-    //When
-    Boolean estCeUnJourTravaille = salarieAideADomicile.estHabituellementTravaille(jour);
-    //Then
-    Assertions.assertEquals(true, estCeUnJourTravaille);
+        //Given
+        LocalDate jour = LocalDate.of(2024,10,23);
+        //When
+        Boolean estCeUnJourTravaille = salarieAideADomicile.estHabituellementTravaille(jour);
+        //Then
+        Assertions.assertEquals(true, estCeUnJourTravaille);
     }
 
     @Test
@@ -53,7 +50,7 @@ public class SalarieAideADomicileTest {
         Assertions.assertEquals(false, estCeUnJourTravaille,"le 5 oct est un samedi, il n'est pas habituellement travaillé");
     }
 
-    // Test parametres
+    // Test parametré
     @ParameterizedTest(name = "nombre de jour de congé : {2} ")
     @CsvSource({
        "'2024-05-06','2024-05-14',6",
@@ -68,22 +65,18 @@ public class SalarieAideADomicileTest {
         Set<LocalDate> nbDeJourPris = salarieAideADomicile.calculeJoursDeCongeDecomptesPourPlage(dateDebParse,dateFinParse);
         //Then
         Assertions.assertEquals(expected, nbDeJourPris.size(), "le nombre de jours doit être de " + expected);
-
     }
 
     @Test
     public void testcalculeJoursDeCongeDecomptesPourPlage(){
-    SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();
-    //Given
+        SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();
+        //Given
         LocalDate dateDebut = LocalDate.of(2024,5,6);
-
         LocalDate dateFin = LocalDate.of(2024,5,14);
-    //When
+        //When
         Set<LocalDate> nbDeJourPris = salarieAideADomicile.calculeJoursDeCongeDecomptesPourPlage(dateDebut,dateFin);
-    //Then
+        //Then
         Assertions.assertEquals(6, nbDeJourPris.size(), "le nombre de jours doit être de 6");
     }
-
-
 }
 

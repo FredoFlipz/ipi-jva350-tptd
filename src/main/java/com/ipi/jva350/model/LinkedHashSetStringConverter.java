@@ -13,13 +13,11 @@ import java.util.stream.Collectors;
 public class LinkedHashSetStringConverter implements AttributeConverter<LinkedHashSet<LocalDate>, String> {
 
     public static final String DELIMITER = ";";
-
     @Override
     public String convertToDatabaseColumn(LinkedHashSet<LocalDate> localDates) {
         return localDates == null ? null
             : localDates.stream().map(d -> d.toString()).collect(Collectors.joining(DELIMITER));
     }
-
     @Override
     public LinkedHashSet<LocalDate> convertToEntityAttribute(String datesString) {
         return datesString == null ? null

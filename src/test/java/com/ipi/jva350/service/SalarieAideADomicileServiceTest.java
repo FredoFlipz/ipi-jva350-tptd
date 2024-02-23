@@ -8,14 +8,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDate;
-
 import static org.mockito.Mockito.*;
+
 @ExtendWith(MockitoExtension.class)
 
 public class SalarieAideADomicileServiceTest {
-
-    /**
-     * testCalculeLimiteEntrepriseCongesPermis avec utilisation mock
+        /**
+     * testCalculeLimiteEntrepriseCongesPermis Testée sans dépendance à la base de données
      */
     @Mock
     SalarieAideADomicileRepository salarieAideADomicileRepository;
@@ -31,7 +30,6 @@ public class SalarieAideADomicileServiceTest {
         LocalDate dernierJourDeConge = LocalDate.of(2024, 3, 29);
         double CongesPrisTotauxAnneeNMoins1 = 3.0;
         when(salarieAideADomicileRepository.partCongesPrisTotauxAnneeNMoins1()).thenReturn(CongesPrisTotauxAnneeNMoins1);
-
         // When
         long limiteConges = salarieAideADomicileService.calculeLimiteEntrepriseCongesPermis(
                 moisEnCours,
@@ -39,7 +37,6 @@ public class SalarieAideADomicileServiceTest {
                 moisDebutContrat,
                 premierJourDeConge,
                 dernierJourDeConge);
-
         // Then
        Assertions.assertEquals(3, limiteConges);
     }
@@ -55,7 +52,6 @@ public class SalarieAideADomicileServiceTest {
         LocalDate moisDebutContrat = LocalDate.of(2023, 1, 1);
         LocalDate premierJourDeConge = LocalDate.of(2024, 2, 10);
         LocalDate dernierJourDeConge = LocalDate.of(2024, 2, 20);
-
         // When
         long limiteConges = salarieAideADomicileService.calculeLimiteEntrepriseCongesPermis(
                 moisEnCours,
@@ -64,7 +60,6 @@ public class SalarieAideADomicileServiceTest {
                 premierJourDeConge,
                 dernierJourDeConge
         );
-
         // Then
         Assertions.assertEquals(16, limiteConges);
     }

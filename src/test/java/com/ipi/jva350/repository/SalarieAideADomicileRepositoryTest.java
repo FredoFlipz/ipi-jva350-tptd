@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 public class SalarieAideADomicileRepositoryTest {
-
     @Autowired
     private SalarieAideADomicileRepository repository;
 
@@ -35,10 +34,8 @@ public class SalarieAideADomicileRepositoryTest {
         entityManager.persist(salarie);
         entityManager.flush();
         double resultatAttendu = salarieCPPrisNMoins1/salarieCCPAcquisNMoins1;
-
         // When
         Double resultat = repository.partCongesPrisTotauxAnneeNMoins1();
-
         // Then
         Assertions.assertEquals(resultatAttendu, resultat);
         assertNotNull(resultat);
