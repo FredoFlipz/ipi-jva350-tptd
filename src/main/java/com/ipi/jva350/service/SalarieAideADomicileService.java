@@ -13,6 +13,7 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.stream.Collectors;
+//import static org.mokito.Mokito.*;
 
 @Service
 public class SalarieAideADomicileService {
@@ -20,6 +21,9 @@ public class SalarieAideADomicileService {
     @Autowired
     private SalarieAideADomicileRepository salarieAideADomicileRepository;
 
+   /* public void setSalarieAideADomicileRepository{
+        salarieAideADomicileRepository  = mock(SalarieAideADomicileRepository.class);
+    }*/
     public SalarieAideADomicileService() {
     }
 

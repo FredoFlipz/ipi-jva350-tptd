@@ -2,6 +2,8 @@ package com.ipi.jva350.model;
 import com.ipi.jva350.service.SalarieAideADomicileService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
@@ -51,6 +53,25 @@ public class SalarieAideADomicileTest {
         //Then
         Assertions.assertEquals(false, estCeUnJourTravaille,"le 5 oct est un samedi, il n'est pas habituellement travaillé");
     }
+
+    // Test parametres
+    @ParameterizedTest(name = "nombre de jour de congé : {2} ")
+    @CsvSource({
+       "'2024-05-06','2024-05-14',6",
+       "'2024-08-02','2024-08-02',2"
+    })
+    void testcalculeJoursDeCongeDecomptePourPlage2(String dateDebut,String dateFin,int expected){
+        SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();
+        // Given,
+        LocalDate dateDebParse = LocalDate.parse(dateDebut);
+        LocalDate dateFinParse = LocalDate.parse(dateFin);
+        // When
+        LinkedHashSet<LocalDate> nbDeJourPris = salarieAideADomicile.calculeJoursDeCongeDecomptesPourPlage(dateDebParse,dateFinParse);
+        //Then
+        Assertions.assertEquals(expected, nbDeJourPris.size(), "le nombre de jours doit être de " + expected);
+
+    }
+
     @Test
     public void testcalculeJoursDeCongeDecomptesPourPlage(){
     SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();
