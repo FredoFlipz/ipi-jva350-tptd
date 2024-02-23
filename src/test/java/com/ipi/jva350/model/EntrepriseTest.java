@@ -11,6 +11,26 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class EntrepriseTest {
+    @Test
+    public void testEstJourFerieTrue(){
+        // Given
+        LocalDate jour = LocalDate.parse("2024-12-25");
+        //When
+        Boolean estJourFerie = Entreprise.estJourFerie(jour);
+        // Then
+        Assertions.assertEquals(true, estJourFerie);
+    }
+    @Test
+    public void testEstJourFerieFalse(){
+        // Given
+        LocalDate jour = LocalDate.parse("2024-12-27");
+        //When
+        Boolean estJourFerie = Entreprise.estJourFerie(jour);
+        // Then
+        Assertions.assertEquals(false, estJourFerie);
+    }
+
+
     @ParameterizedTest(name="{1}")
     @CsvSource({
             "'2024-02-22','2024-02-20','2024-02-23',true",
@@ -34,7 +54,7 @@ public class EntrepriseTest {
 
     @ParameterizedTest(name= "La ponderation que l'on veut voir est {2}")
     @CsvSource({
-            "'2022-01-24',0.7333333333333333", // Cas 1
+            "'2022-01-24',0.7333333333333333",
             "'2022-07-23',0.23333333333333334",
             "'2022-10-23',0.5333333333333333",
     })
@@ -47,11 +67,6 @@ public class EntrepriseTest {
         Assertions.assertEquals(expected, proportionPondereeDuMois);
 
     }
-
-
-
-
-
 
     @ParameterizedTest(name= "La date que l'on veut voir est {1}")
     @CsvSource({

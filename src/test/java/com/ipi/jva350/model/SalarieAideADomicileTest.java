@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.LinkedHashSet;
 
 public class SalarieAideADomicileTest {
+
     @Test
     public void testALegalementDroitADesCongesPayesTrue(){
     SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();

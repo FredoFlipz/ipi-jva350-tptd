@@ -21,12 +21,14 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 
 public class SalarieAideADomicileServiceTest {
+
+    /**
+     * testCalculeLimiteEntrepriseCongesPermis avec utilisation mock
+     */
     @Mock
     SalarieAideADomicileRepository salarieAideADomicileRepository;
-
     @InjectMocks
     SalarieAideADomicileService salarieAideADomicileService;
-
     @Test
     public void testCalculeLimiteEntrepriseCongesPermis() {
         // Given
@@ -35,18 +37,24 @@ public class SalarieAideADomicileServiceTest {
         LocalDate moisDebutContrat = LocalDate.of(2023, 2, 22);
         LocalDate premierJourDeConge = LocalDate.of(2024, 2, 22);
         LocalDate dernierJourDeConge = LocalDate.of(2024, 3, 29);
-        double partCongesPrisTotauxAnneeNMoins1 = 3.0;
-        when(salarieAideADomicileRepository.partCongesPrisTotauxAnneeNMoins1()).thenReturn(partCongesPrisTotauxAnneeNMoins1);
+        double CongesPrisTotauxAnneeNMoins1 = 3.0;
+        when(salarieAideADomicileRepository.partCongesPrisTotauxAnneeNMoins1()).thenReturn(CongesPrisTotauxAnneeNMoins1);
 
         // When
         long limiteConges = salarieAideADomicileService.calculeLimiteEntrepriseCongesPermis(
-                moisEnCours, congesPayesAcquisAnneeNMoins1, moisDebutContrat,
-                premierJourDeConge, dernierJourDeConge);
+                moisEnCours,
+                congesPayesAcquisAnneeNMoins1,
+                moisDebutContrat,
+                premierJourDeConge,
+                dernierJourDeConge);
 
         // Then
        Assertions.assertEquals(3, limiteConges);
     }
 
+    /**
+     * testCalculeLimiteEntrepriseCongesPermi en test d'intégration
+     */
     @Test
     public void testCalculeLimiteEntrepriseCongesPermis2() {
         // Given
